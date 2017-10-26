@@ -1,3 +1,20 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">Mms</string>
+    <!--Slogan-->
+    <string name="slogan">Love texting again.</string>
+
+    <!--Welcome screen intro button-->
+    <string name="welcome_start">Let\'s get started!</string>
+    <!--Allows user to skip welcome screen-->
+    <string name="welcome_skip">SKIP</string>
+    <!--Allows user to finish the welcome screen-->
+    <string name="welcome_finish">FINISH</string>
+    <!--Indicates to user they can pick a color-->
+    <string name="welcome_theme_title">Pick a color</string>
+    <!--Indicates to user they can pick any colors-->
+    <string name="welcome_theme_description">Any color.</string>
+    <!--Tells user to press button to toggle night mode-->
+    <string name="welcome_night_description">Easy on the eyes.</string>
+    <!--Tells user to press button to toggle night mode-->
+    <string name="welcome_night_hint">Toggle me</string>
 </resources>

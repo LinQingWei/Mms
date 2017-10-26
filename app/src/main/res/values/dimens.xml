@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="view_toolbar_height">56dp</dimen>
+
+    <dimen name="common_text_size_big">18sp</dimen>
+    <dimen name="common_padding_small">4dp</dimen>
+    <dimen name="common_padding_medium">8dp</dimen>
+
+    <dimen name="welcome_skip_text_width">88dp</dimen>
+    <dimen name="welcome_skip_text_height">36dp</dimen>
+    <dimen name="welcome_indicator_arrow_size">64dp</dimen>
+    <dimen name="welcome_indicator_size">16dp</dimen>
 </resources>

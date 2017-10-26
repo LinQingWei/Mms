@@ -1,6 +1,8 @@
 package com.way.mms.ui.base;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -207,5 +209,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void makeToast(@StringRes int message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    public static void start(Context context, Class<?> cls) {
+        Intent intent = new Intent(context, cls);
+        context.startActivity(intent);
+    }
+
+    public static void startForResult(Activity activity, Class<?> cls, int requestCode) {
+        Intent intent = new Intent(activity, cls);
+        activity.startActivityForResult(intent, requestCode);
     }
 }

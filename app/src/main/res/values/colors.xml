@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="def_indicator_tint_color">#FFFFFFFF</color>
+
+    <color name="grey_light_mega_ultra">#eeeeee</color>
     <color name="grey_material">#ff212121</color>
     <color name="theme_dark_text_primary">#FFFFFF</color>
     <color name="theme_dark_text_secondary">#999999</color>

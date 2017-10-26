@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:way="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp">
+
+    <com.way.mms.ui.view.RobotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/app_name"
+        android:textColor="@color/text_primary_dark"
+        android:textSize="54sp"
+        way:typeface="roboto_thin" />
+
+    <com.way.mms.ui.view.RobotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/slogan"
+        android:textColor="@color/text_primary_dark"
+        android:textSize="18sp"
+        way:typeface="roboto_light" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="64sp" />
+
+    <com.way.mms.ui.view.WayTextView
+        android:id="@+id/welcome_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_white"
+        android:gravity="center"
+        android:minHeight="36dp"
+        android:minWidth="88dp"
+        android:singleLine="true"
+        android:text="@string/welcome_start"
+        way:type="pref_category" />
+</LinearLayout>

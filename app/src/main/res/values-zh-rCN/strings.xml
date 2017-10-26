@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+    <!--Slogan-->
+    <string name="slogan">再一次爱上发送短信</string>
+
+    <!--Allows user to skip welcome screen-->
+    <string name="welcome_skip">跳过</string>
+    <!--Allows user to finish the welcome screen-->
+    <string name="welcome_finish">完成</string>
+    <!--Indicates to user they can pick a color-->
+    <string name="welcome_theme_title">选取一种颜色</string>
+    <!--Indicates to user they can pick any colors-->
+    <string name="welcome_theme_description">任何颜色。</string>
+    <!--Tells user to press button to toggle night mode-->
+    <string name="welcome_night_description">舒缓眼睛</string>
+    <!--Tells user to press button to toggle night mode-->
+    <string name="welcome_night_hint">点我切换</string>
+</resources>
