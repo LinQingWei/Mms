@@ -1,5 +1,6 @@
 package com.way.mms.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.way.mms.ui.base.BaseActivity;
@@ -13,6 +14,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         launchWelcomeActivity();
+        onNewIntent(getIntent());
     }
 
     private void launchWelcomeActivity() {
@@ -22,5 +24,13 @@ public class MainActivity extends BaseActivity {
         }
 
         WelcomeActivity.startForResult(this, WelcomeActivity.class, WelcomeActivity.WELCOME_REQUEST_CODE);
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // onNewIntent doesn't change the result of getIntent() by default, so here we set it since
+        // that makes the most sense.
+        setIntent(intent);
     }
 }

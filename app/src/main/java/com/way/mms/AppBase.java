@@ -5,6 +5,10 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.way.mms.common.LiveViewManager;
+import com.way.mms.common.WayPreferences;
+import com.way.mms.ui.ThemeManager;
+
 /**
  * <pre>
  *     author: Way Lin
@@ -31,6 +35,10 @@ public class AppBase extends MultiDexApplication {
         }
 
         sAppBase = this;
+
+        ThemeManager.init(this);
+        LiveViewManager.init(this);
+        WayPreferences.init(this);
     }
 
     public synchronized static AppBase getApplication() {

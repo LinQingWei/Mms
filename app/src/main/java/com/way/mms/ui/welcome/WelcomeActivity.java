@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.way.mms.R;
+import com.way.mms.common.LiveViewManager;
+import com.way.mms.enums.WayPreference;
 import com.way.mms.ui.ThemeManager;
 import com.way.mms.ui.base.BaseActivity;
 import com.way.mms.ui.settings.SettingsFragment;
@@ -64,6 +66,10 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
         BaseWelcomeFragment.setActivity(this);
         mPager.setOnPageChangeListener(this);
         mPager.setAdapter(new WelcomePagerAdapter(getSupportFragmentManager()));
+
+        LiveViewManager.registerView(WayPreference.THEME, this, key -> {
+            mBackground.setBackgroundColor(ThemeManager.getActiveColor());
+        });
     }
 
     public void setColorBackground(int color) {

@@ -1,6 +1,25 @@
 package com.way.mms.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
+import android.support.annotation.ColorInt;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+
+import com.way.mms.R;
+import com.way.mms.common.CIELChEvaluator;
+import com.way.mms.common.LiveViewManager;
+import com.way.mms.enums.WayPreference;
+import com.way.mms.ui.base.BaseActivity;
+import com.way.mms.ui.settings.SettingsFragment;
+import com.way.mms.ui.view.WayTextView;
 
 /**
  * Way Lin, 20171026.
@@ -10,7 +29,7 @@ public class ThemeManager {
     private final static String TAG = "ThemeManager";
 
     public static final int DEFAULT_COLOR = 0xff009688;
-
+    public static final int TRANSITION_LENGTH = 500;
 
     public enum Theme {
         LIGHT,
@@ -185,16 +204,199 @@ public class ThemeManager {
             0, 0, 0, 1, 1, 1, 1, 1, 1, 1
     }};
 
+    private static int sColor;
     private static int sActiveColor;
+    private static int sBackgroundColor;
+    private static Theme sTheme;
 
+    private static int sTextOnColorPrimary;
+    private static int sTextOnColorSecondary;
+    private static int sTextOnBackgroundPrimary;
+    private static int stextOnBackgroundSecondary;
 
+    private static Resources sResources;
+    private static SharedPreferences sPrefs;
+
+    private static Context mContext;
+
+    public static void init(Context context) {
+        mContext = context;
+
+        sPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        sResources = context.getResources();
+
+        sColor = Integer.parseInt(sPrefs.getString(SettingsFragment.THEME, "" + DEFAULT_COLOR));
+        sActiveColor = sColor;
+
+        initializeTheme(Theme.fromString(sPrefs.getString(SettingsFragment.BACKGROUND, "offwhite")));
+    }
+
+    public static void setTheme(Theme theme) {
+        final int startColor = sBackgroundColor;
+        initializeTheme(theme);
+        final int endColor = sBackgroundColor;
+
+        if (startColor != endColor) {
+            ValueAnimator backgroundAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
+            backgroundAnimation.setDuration(TRANSITION_LENGTH);
+            backgroundAnimation.addUpdateListener(animation -> {
+                sBackgroundColor = (Integer) animation.getAnimatedValue();
+                LiveViewManager.refreshViews(WayPreference.BACKGROUND);
+            });
+            backgroundAnimation.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    sBackgroundColor = endColor;
+                    LiveViewManager.refreshViews(WayPreference.BACKGROUND);
+                }
+            });
+            backgroundAnimation.start();
+        } else {
+            LiveViewManager.refreshViews(WayPreference.BACKGROUND);
+        }
+    }
+
+    private static void initializeTheme(Theme theme) {
+        sTheme = theme;
+
+        switch (theme) {
+            case LIGHT:
+                sBackgroundColor = sResources.getColor(R.color.grey_light_mega_ultra);
+                sTextOnBackgroundPrimary = sResources.getColor(R.color.theme_light_text_primary);
+                stextOnBackgroundSecondary = sResources.getColor(R.color.theme_light_text_secondary);
+                break;
+
+            case DARK:
+                sBackgroundColor = sResources.getColor(R.color.grey_material);
+                sTextOnBackgroundPrimary = sResources.getColor(R.color.theme_dark_text_primary);
+                stextOnBackgroundSecondary = sResources.getColor(R.color.theme_dark_text_secondary);
+                break;
+
+            case BLACK:
+                sBackgroundColor = sResources.getColor(R.color.black);
+                sTextOnBackgroundPrimary = sResources.getColor(R.color.theme_dark_text_primary);
+                stextOnBackgroundSecondary = sResources.getColor(R.color.theme_dark_text_secondary);
+                break;
+            default:
+                break;
+        }
+
+        sTextOnColorPrimary = sResources.getColor(isColorDarkEnough(sColor) ?
+                R.color.theme_dark_text_primary : R.color.theme_light_text_primary);
+        sTextOnColorSecondary = sResources.getColor(isColorDarkEnough(sColor) ?
+                R.color.theme_dark_text_secondary : R.color.theme_light_text_secondary);
+
+        LiveViewManager.refreshViews(WayPreference.BACKGROUND);
+    }
+
+    @ColorInt
+    public static int getBackgroundColor() {
+        return sBackgroundColor;
+    }
+
+    @ColorInt
+    public static int getTextOnColorPrimary() {
+        return sTextOnColorPrimary;
+    }
+
+    @ColorInt
+    public static int getTextOnColorSecondary() {
+        return sTextOnColorSecondary;
+    }
+
+    @ColorInt
+    public static int getTextOnBackgroundPrimary() {
+        return sTextOnBackgroundPrimary;
+    }
+
+    @ColorInt
+    public static int getTextOnBackgroundSecondary() {
+        return stextOnBackgroundSecondary;
+    }
+
+    @ColorInt
     public static int getActiveColor() {
         return sActiveColor;
     }
 
+    @ColorInt
+    public static int getThemeColor() {
+        return sColor;
+    }
+
+    public static Theme getTheme() {
+        return sTheme;
+    }
+
+    public static boolean isNightMode() {
+        return sTheme == Theme.DARK || sTheme == Theme.BLACK;
+    }
+
+    public static void setColor(BaseActivity activity, int color) {
+        int colorFrom = sActiveColor;
+        sColor = color;
+        sActiveColor = color;
+
+        sPrefs.edit().putString(SettingsFragment.THEME, "" + color).apply();
+
+        sTextOnColorPrimary = sResources.getColor(isColorDarkEnough(sColor) ?
+                R.color.theme_dark_text_primary : R.color.theme_light_text_primary);
+        sTextOnColorSecondary = sResources.getColor(isColorDarkEnough(sColor) ?
+                R.color.theme_dark_text_secondary : R.color.theme_light_text_secondary);
+
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new CIELChEvaluator(colorFrom, color), 0);
+        colorAnimation.setDuration(TRANSITION_LENGTH);
+        colorAnimation.setInterpolator(new DecelerateInterpolator());
+        colorAnimation.addUpdateListener(animation -> {
+            setActiveColor((Integer) animation.getAnimatedValue());
+        });
+        colorAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+            }
+        });
+        colorAnimation.start();
+
+        WayTextView titleTextView = activity.getTitleTextView();
+        if (titleTextView == null) {
+            View view = activity.findViewById(R.id.toolbar_title);
+            if (view != null && view instanceof WayTextView) {
+                titleTextView = (WayTextView) view;
+            }
+        }
+        if (titleTextView != null) {
+            final WayTextView title = titleTextView;
+            if (title.getCurrentTextColor() != sTextOnColorPrimary) {
+                ValueAnimator titleColorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), title.getCurrentTextColor(), sTextOnColorPrimary);
+                titleColorAnimation.setDuration(TRANSITION_LENGTH);
+                titleColorAnimation.setInterpolator(new DecelerateInterpolator());
+                titleColorAnimation.addUpdateListener(animation -> {
+                    int color1 = (Integer) animation.getAnimatedValue();
+                    title.setTextColor(color1);
+                    activity.colorMenuIcons(activity.getMenu(), color1);
+                });
+                titleColorAnimation.start();
+            }
+        }
+    }
+
     public static void setActiveColor(int activeColor) {
         if (sActiveColor != activeColor) {
-            sActiveColor = sActiveColor;
+            sActiveColor = activeColor;
+            LiveViewManager.refreshViews(WayPreference.THEME);
         }
+    }
+
+    private static boolean isColorDarkEnough(int color) {
+        for (int i = 0; i < COLORS.length; i++) {
+            for (int j = 0; j < COLORS[i].length; j++) {
+                if (color == COLORS[i][j]) {
+                    return TEXT_MODE[i][j] == 1;
+                }
+            }
+        }
+
+        return true;
     }
 }

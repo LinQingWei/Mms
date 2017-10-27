@@ -9,7 +9,16 @@ import com.way.mms.ui.ThemeManager;
 public enum WayPreference {
     // Appearance
     THEME("pref_key_theme", ThemeManager.DEFAULT_COLOR),
-    BACKGROUND("pref_key_background", "offwhite"),;
+    BACKGROUND("pref_key_background", "offwhite"),
+
+    TINTED_STATUS("pref_key_status_tint", true),
+    TINTED_NAV("pref_key_navigation_tint", false),
+
+    FONT_FAMILY("pref_key_font_family", "0"),
+    FONT_SIZE("pref_key_font_size", "1"),
+    FONT_WEIGHT("pref_key_font_weight", "0"),
+
+    TEXT_FORMATTING("pref_key_markdown_enabled", false),;
 
     private String mKey;
     private Object mDefaultValue;

@@ -1,14 +1,17 @@
 package com.way.mms.ui.base;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
@@ -26,6 +29,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.way.mms.R;
+import com.way.mms.common.LiveViewManager;
+import com.way.mms.common.WayPreferences;
+import com.way.mms.common.utils.ColorUtils;
+import com.way.mms.enums.WayPreference;
+import com.way.mms.ui.ThemeManager;
 import com.way.mms.ui.view.WayTextView;
 
 import java.util.ArrayList;
@@ -51,6 +59,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Resources mRes;
     protected SharedPreferences mPrefs;
 
+    private static boolean mStatusTintEnabled = true;
+    private static boolean mNavigationTintEnabled = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +72,35 @@ public abstract class BaseActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setCancelable(false);
+
+        LiveViewManager.registerView(WayPreference.TINTED_STATUS, this, key -> {
+            mStatusTintEnabled = WayPreferences.getBoolean(WayPreference.TINTED_STATUS) &&
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+        });
+
+        LiveViewManager.registerView(WayPreference.TINTED_NAV, this, key -> {
+            mNavigationTintEnabled = WayPreferences.getBoolean(WayPreference.TINTED_NAV) &&
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+        });
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            mRecentsIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+            LiveViewManager.registerView(WayPreference.THEME, this, key -> {
+                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), mRecentsIcon, ThemeManager.getActiveColor());
+                setTaskDescription(taskDesc);
+            });
+        }
     }
 
+    /**
+     * Reloads the toolbar and it's view references.
+     * <p>
+     * This is called every time the content view of the activity is set, since the
+     * toolbar is now a part of the activity layout.
+     * <p>
+     * TODO: If someone ever wants to manage the Toolbar dynamically instead of keeping it in their
+     * TODO  layout file, we can add an alternate way of setting the toolbar programmatically.
+     */
     private void reloadToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -73,6 +111,32 @@ public abstract class BaseActivity extends AppCompatActivity {
             mTitle = (WayTextView) mToolbar.findViewById(R.id.toolbar_title);
             setSupportActionBar(mToolbar);
         }
+
+        LiveViewManager.registerView(WayPreference.THEME, this, key -> {
+            mToolbar.setBackgroundColor(ThemeManager.getActiveColor());
+
+            if (mStatusTintEnabled) {
+                getWindow().setStatusBarColor(ColorUtils.darken(ThemeManager.getActiveColor()));
+            }
+            if (mNavigationTintEnabled) {
+                getWindow().setNavigationBarColor(ColorUtils.darken(ThemeManager.getActiveColor()));
+            }
+        });
+
+        LiveViewManager.registerView(WayPreference.BACKGROUND, this, key -> {
+            setTheme(getThemeRes());
+            switch (ThemeManager.getTheme()) {
+                case LIGHT:
+                    mToolbar.setPopupTheme(R.style.PopupThemeLight);
+                    break;
+
+                case DARK:
+                case BLACK:
+                    mToolbar.setPopupTheme(R.style.PopupTheme);
+                    break;
+            }
+            ((WayTextView) findViewById(R.id.toolbar_title)).setTextColor(ThemeManager.getTextOnColorPrimary());
+        });
     }
 
     protected void showBackButton(boolean show) {
@@ -163,6 +227,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // Save a reference to the menu so that we can quickly access menu icons later.
         mMenu = menu;
+        colorMenuIcons(mMenu, ThemeManager.getTextOnColorPrimary());
         return true;
     }
 
@@ -200,11 +265,31 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setTitle(CharSequence title) {
         super.setTitle(title);
+
+        if (mTitle != null) {
+            mTitle.setText(title);
+        }
+    }
+
+    public WayTextView getTitleTextView() {
+        return mTitle;
     }
 
     public void startActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
+    }
+
+    protected int getThemeRes() {
+        switch (ThemeManager.getTheme()) {
+            case DARK:
+                return R.style.AppThemeDark;
+
+            case BLACK:
+                return R.style.AppThemeDarkAmoled;
+        }
+
+        return R.style.AppThemeLight;
     }
 
     public void makeToast(@StringRes int message) {

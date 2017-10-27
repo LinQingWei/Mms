@@ -17,4 +17,10 @@
     <string name="welcome_night_description">Easy on the eyes.</string>
     <!--Tells user to press button to toggle night mode-->
     <string name="welcome_night_hint">Toggle me</string>
+
+    <string name="pref_night">Night mode</string>
+
+    <string name="color_swatch_description">Color %1$d</string>
+    <string name="color_swatch_description_selected">Color %1$d selected</string>
+    <string name="color_picker_default_title">Select a Color</string>
 </resources>
