@@ -1,0 +1,23 @@
+package android.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * Way Lin, 20171024.
+ * Indicates a constant field value should be exported to be used in the SDK tools.
+ *
+ * @hide
+ */
+
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.SOURCE)
+public @interface SdkConstant {
+    public enum SdkConstantType {
+        ACTIVITY_INTENT_ACTION, BROADCAST_INTENT_ACTION, SERVICE_ACTION, INTENT_CATEGORY, FEATURE
+    }
+
+    SdkConstantType value();
+}
