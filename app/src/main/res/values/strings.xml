@@ -23,4 +23,16 @@
     <string name="color_swatch_description">Color %1$d</string>
     <string name="color_swatch_description_selected">Color %1$d selected</string>
     <string name="color_picker_default_title">Select a Color</string>
+
+    <string name="title_conversation_list">Conversations</string>
+
+    <!--Positive action button-->
+    <string name="upgrade_now">Set now</string>
+
+    <!-- Tells the user they need to set Mms as the default app in order to use this feature -->
+    <string name="default_info">Mms needs to be your SMS app to do that</string>
+    <!-- Tells the user they should set Mms as the default messaging app -->
+    <string name="not_default_first">Some things won\'t work until Mms is the default SMS app</string>
+
+    <string name="hint_no_messages">No messages yet.\nClick the + to send one!</string>
 </resources>

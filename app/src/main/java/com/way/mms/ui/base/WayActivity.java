@@ -46,8 +46,8 @@ import java.util.ArrayList;
  * </pre>
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
-    private final String TAG = "BaseActivity";
+public abstract class WayActivity extends AppCompatActivity {
+    private final String TAG = "WayActivity";
 
     private Toolbar mToolbar;
     private WayTextView mTitle;
@@ -105,7 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         if (mToolbar == null) {
-            throw new RuntimeException("Toolbar not found in BaseActivity layout.");
+            throw new RuntimeException("Toolbar not found in WayActivity layout.");
         } else {
             mToolbar.setPopupTheme(R.style.PopupTheme);
             mTitle = (WayTextView) mToolbar.findViewById(R.id.toolbar_title);

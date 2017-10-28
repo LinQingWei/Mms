@@ -20,6 +20,8 @@ import com.way.mms.ui.ThemeManager;
 public class AppBase extends MultiDexApplication {
     public static final String LOG_TAG = "Mms";
 
+    public static final int LOADER_CONVERSATIONS = 0;
+
     private static AppBase sAppBase;
 
     @Override

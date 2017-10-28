@@ -15,7 +15,7 @@ import com.way.mms.R;
 import com.way.mms.common.LiveViewManager;
 import com.way.mms.enums.WayPreference;
 import com.way.mms.ui.ThemeManager;
-import com.way.mms.ui.base.BaseActivity;
+import com.way.mms.ui.base.WayActivity;
 import com.way.mms.ui.settings.SettingsFragment;
 import com.way.mms.ui.view.RobotoTextView;
 
@@ -23,7 +23,7 @@ import com.way.mms.ui.view.RobotoTextView;
  * Way Lin, 20171025.
  */
 
-public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class WelcomeActivity extends WayActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
     private static final String TAG = "WelcomeActivity";
 
     public static final int WELCOME_REQUEST_CODE = 1025;
@@ -62,8 +62,8 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
         tintIndicators(getResources().getColor(R.color.def_indicator_tint_color));
 
         mPager = (ViewPager) findViewById(R.id.welcome_pager);
-        BaseWelcomeFragment.setPager(mPager);
-        BaseWelcomeFragment.setActivity(this);
+        WayWelcomeFragment.setPager(mPager);
+        WayWelcomeFragment.setActivity(this);
         mPager.setOnPageChangeListener(this);
         mPager.setAdapter(new WelcomePagerAdapter(getSupportFragmentManager()));
 
@@ -108,15 +108,15 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         WelcomePagerAdapter adapter = (WelcomePagerAdapter) mPager.getAdapter();
         Fragment fragment = adapter.getItem(position);
-        if (fragment instanceof BaseWelcomeFragment.WelcomeScrollListener) {
-            ((BaseWelcomeFragment.WelcomeScrollListener) fragment).onScrollOffsetChanged(this, positionOffset);
+        if (fragment instanceof WayWelcomeFragment.WelcomeScrollListener) {
+            ((WayWelcomeFragment.WelcomeScrollListener) fragment).onScrollOffsetChanged(this, positionOffset);
         }
 
         final int next = position + 1;
         if (next < adapter.getCount()) {
             fragment = adapter.getItem(next);
-            if (fragment instanceof BaseWelcomeFragment.WelcomeScrollListener) {
-                ((BaseWelcomeFragment.WelcomeScrollListener) fragment).onScrollOffsetChanged(this, 1 - positionOffset);
+            if (fragment instanceof WayWelcomeFragment.WelcomeScrollListener) {
+                ((WayWelcomeFragment.WelcomeScrollListener) fragment).onScrollOffsetChanged(this, 1 - positionOffset);
             }
         }
     }

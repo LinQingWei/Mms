@@ -13,7 +13,7 @@ import com.way.mms.ui.view.WayTextView;
  * Way Lin, 20171026.
  */
 
-public class WelcomeIntroFragment extends BaseWelcomeFragment implements View.OnClickListener {
+public class WelcomeIntroFragment extends WayWelcomeFragment implements View.OnClickListener {
 
     @Nullable
     @Override

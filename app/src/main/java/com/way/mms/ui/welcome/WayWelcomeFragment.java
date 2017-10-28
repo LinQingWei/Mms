@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.way.mms.ui.base.BaseFragment;
+import com.way.mms.ui.base.WayFragment;
 
 /**
  * Way Lin, 20171026.
  */
 
-public class BaseWelcomeFragment extends BaseFragment {
+public class WayWelcomeFragment extends WayFragment {
     public interface WelcomeScrollListener {
         void onScrollOffsetChanged(WelcomeActivity activity, float offset);
     }

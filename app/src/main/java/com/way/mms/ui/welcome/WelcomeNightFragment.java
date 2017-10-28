@@ -21,7 +21,7 @@ import com.way.mms.ui.view.WayTextView;
  * Way Lin, 20171026.
  */
 
-public class WelcomeNightFragment extends BaseWelcomeFragment implements BaseWelcomeFragment.WelcomeScrollListener,
+public class WelcomeNightFragment extends WayWelcomeFragment implements WayWelcomeFragment.WelcomeScrollListener,
         View.OnClickListener {
     private ArgbEvaluator mArgbEvaluator = new ArgbEvaluator();
     private RobotoTextView mNightTitle;

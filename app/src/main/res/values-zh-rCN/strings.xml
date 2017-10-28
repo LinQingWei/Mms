@@ -3,6 +3,8 @@
     <!--Slogan-->
     <string name="slogan">再一次爱上发送短信</string>
 
+    <!--Welcome screen intro button-->
+    <string name="welcome_start">开始吧！</string>
     <!--Allows user to skip welcome screen-->
     <string name="welcome_skip">跳过</string>
     <!--Allows user to finish the welcome screen-->
@@ -21,4 +23,16 @@
     <string name="color_swatch_description">颜色 %1$d</string>
     <string name="color_swatch_description_selected">颜色 %1$d 已选择</string>
     <string name="color_picker_default_title">选择一种颜色</string>
+
+    <string name="title_conversation_list">会话</string>
+
+    <!--Positive action button-->
+    <string name="upgrade_now">现在设置</string>
+
+    <!-- Tells the user they need to set Mms as the default app in order to use this feature -->
+    <string name="default_info">Mms 需要被设置为你的默认短信应用</string>
+    <!-- Tells the user they should set Mms as the default messaging app -->
+    <string name="not_default_first">Mms 需要设置为默认短信应用才能正常工作</string>
+
+    <string name="hint_no_messages">“暂无信息.\n点击“+”新建信息！”</string>
 </resources>

@@ -16,8 +16,8 @@ import com.way.mms.ui.view.colorpicker.ColorPickerSwatch;
  * Way Lin, 20171026.
  */
 
-public class WelcomeThemeFragment extends BaseWelcomeFragment implements ColorPickerSwatch.OnColorSelectedListener,
-        BaseWelcomeFragment.WelcomeScrollListener {
+public class WelcomeThemeFragment extends WayWelcomeFragment implements ColorPickerSwatch.OnColorSelectedListener,
+        WayWelcomeFragment.WelcomeScrollListener {
     private final String TAG = "WelcomeThemeFragment";
 
     private ColorPickerPalette mPallette;
