@@ -35,4 +35,13 @@
     <string name="not_default_first">Mms 需要设置为默认短信应用才能正常工作</string>
 
     <string name="hint_no_messages">“暂无信息.\n点击“+”新建信息！”</string>
+
+    <string name="required_permissions_promo">"“短信”应用需要获得“短信”、“电话”和“通讯录”的访问权限。"</string>
+    <string name="enable_permission_procedure">"您可以在“设置”&gt;“应用”&gt;“短信”&gt;“权限”中更改权限。"</string>
+    <string name="enable_permission_procedure_description">"您可以依次触摸“设置”、“应用”、“短信”和“权限”来更改权限。"</string>
+    <string name="next_with_arrow">"下一步 &gt;"</string>
+    <string name="next">"下一步"</string>
+    <string name="exit">"退出"</string>
+    <string name="settings_with_arrow">"设置 &gt;"</string>
+    <string name="settings">"设置"</string>
 </resources>

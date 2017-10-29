@@ -32,6 +32,7 @@ import com.way.mms.R;
 import com.way.mms.common.LiveViewManager;
 import com.way.mms.common.WayPreferences;
 import com.way.mms.common.utils.ColorUtils;
+import com.way.mms.common.utils.UiUtils;
 import com.way.mms.enums.WayPreference;
 import com.way.mms.ui.ThemeManager;
 import com.way.mms.ui.view.WayTextView;
@@ -65,6 +66,9 @@ public abstract class WayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (UiUtils.redirectToPermissionCheckIfNeeded(this)) {
+            return;
+        }
         mRes = getResources();
         // set the preferences if they haven't been set. this method takes care of that logic for us
         getPrefs();

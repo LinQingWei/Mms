@@ -35,4 +35,14 @@
     <string name="not_default_first">Some things won\'t work until Mms is the default SMS app</string>
 
     <string name="hint_no_messages">No messages yet.\nClick the + to send one!</string>
+
+    <!-- Inform user of the names of permissions that are required to use the app -->
+    <string name="required_permissions_promo">Mms needs permission to SMS, Phone and Contacts.</string>
+    <string name="enable_permission_procedure">You can change permissions in Settings > Apps > Mms > Permissions.</string>
+    <string name="enable_permission_procedure_description">You can change permissions in Settings, Apps, Mms, Permissions.</string>
+    <string name="next_with_arrow">Next &gt;</string>
+    <string name="next">Next</string>
+    <string name="exit">Exit</string>
+    <string name="settings_with_arrow">Settings &gt;</string>
+    <string name="settings">Settings</string>
 </resources>

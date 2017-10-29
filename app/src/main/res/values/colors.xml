@@ -14,4 +14,5 @@
     <color name="theme_light_text_secondary">#707070</color>
     <color name="theme_dark_text_primary">#FFFFFF</color>
     <color name="theme_dark_text_secondary">#999999</color>
+    <color name="permission_check_activity_background">@color/colorPrimary</color>
 </resources>
