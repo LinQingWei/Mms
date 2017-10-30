@@ -9,8 +9,8 @@ package com.way.mms;
  */
 
 public class LogTag {
-    public static final String TAG = "Mms";
-
+    public static final String TAG = "Mms:";
+    public static final String TAG_VIEW = TAG + "View";
     /**
      * Log tag for enabling/disabling StrictMode violation log.
      * To enable: adb shell setprop log.tag.Mms:strictmode DEBUG

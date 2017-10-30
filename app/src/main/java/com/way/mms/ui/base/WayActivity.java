@@ -3,6 +3,7 @@ package com.way.mms.ui.base;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,10 +29,12 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.way.mms.LogTag;
 import com.way.mms.R;
 import com.way.mms.common.LiveViewManager;
 import com.way.mms.common.WayPreferences;
 import com.way.mms.common.utils.ColorUtils;
+import com.way.mms.common.utils.MLog;
 import com.way.mms.common.utils.UiUtils;
 import com.way.mms.enums.WayPreference;
 import com.way.mms.ui.ThemeManager;
@@ -48,7 +51,8 @@ import java.util.ArrayList;
  */
 
 public abstract class WayActivity extends AppCompatActivity {
-    private final String TAG = "WayActivity";
+    protected static final String TAG = LogTag.TAG_VIEW;
+    private final String mComponentName = (getClass().getSimpleName() + " @" + String.valueOf(hashCode()) + "  ");
 
     private Toolbar mToolbar;
     private WayTextView mTitle;
@@ -65,13 +69,14 @@ public abstract class WayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        MLog.d(TAG, mComponentName + "lifecycle onCreate");
         super.onCreate(savedInstanceState);
-        if (UiUtils.redirectToPermissionCheckIfNeeded(this)) {
-            return;
-        }
         mRes = getResources();
         // set the preferences if they haven't been set. this method takes care of that logic for us
         getPrefs();
+        if (UiUtils.redirectToPermissionCheckIfNeeded(this)) {
+            return;
+        }
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
@@ -94,6 +99,60 @@ public abstract class WayActivity extends AppCompatActivity {
                 setTaskDescription(taskDesc);
             });
         }
+    }
+
+    @Override
+    protected void onStart() {
+        MLog.d(TAG, mComponentName + "lifecycle onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        MLog.d(TAG, this.mComponentName + "lifecycle onNewIntent");
+        super.onNewIntent(intent);
+    }
+
+    @Override
+    protected void onRestart() {
+        MLog.d(TAG, this.mComponentName + "lifecycle onRestart");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        MLog.d(TAG, this.mComponentName + "lifecycle onResume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        MLog.d(TAG, this.mComponentName + "lifecycle onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        MLog.d(TAG, this.mComponentName + "lifecycle onStop");
+        super.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        MLog.d(TAG, this.mComponentName + "lifecycle onLowMemory");
+        super.onLowMemory();
+    }
+
+    @Override
+    protected void onDestroy() {
+        MLog.d(TAG, this.mComponentName + "lifecycle onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MLog.d(TAG, this.mComponentName + "lifecycle interaction-onBackPressed");
+        super.onBackPressed();
     }
 
     /**
@@ -300,13 +359,41 @@ public abstract class WayActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    public static void start(Context context, Class<?> cls) {
-        Intent intent = new Intent(context, cls);
-        context.startActivity(intent);
+    public static void start(Activity activity, Class<?> cls) {
+        final Intent intent = new Intent(activity, cls);
+        start(activity, intent);
+    }
+
+    public static void start(final Activity activity, final Intent intent) {
+        try {
+            activity.startActivity(intent);
+        } catch (ActivityNotFoundException ane) {
+            MLog.e(TAG, "start activity failed >> " + ane
+                    + " intent: " + (intent != null ? intent.getAction() : "is null"));
+        } catch (SecurityException se) {
+            if (UiUtils.redirectToPermissionCheckIfNeeded(activity)) {
+                MLog.e(TAG, "startActivityForResult fail for " + intent.getAction(), se);
+            }
+        }
     }
 
     public static void startForResult(Activity activity, Class<?> cls, int requestCode) {
-        Intent intent = new Intent(activity, cls);
-        activity.startActivityForResult(intent, requestCode);
+        final Intent intent = new Intent(activity, cls);
+        startForResult(activity, intent, requestCode);
+
+    }
+
+    public static void startForResult(final Activity activity, final Intent intent, final int requestCode) {
+        try {
+            activity.startActivityForResult(intent, requestCode);
+        } catch (ActivityNotFoundException ane) {
+            MLog.e(TAG, "start activity failed >> " + ane
+                    + " intent: " + (intent != null ? intent.getAction() : "is null")
+                    + " requestCode: " + requestCode);
+        } catch (SecurityException se) {
+            if (UiUtils.redirectToPermissionCheckIfNeeded(activity)) {
+                MLog.e(TAG, "startActivityForResult fail for " + intent.getAction(), se);
+            }
+        }
     }
 }
