@@ -3,8 +3,8 @@ package com.way.mms.ui.conversation;
 import android.view.ViewGroup;
 
 import com.way.mms.data.Conversation;
+import com.way.mms.ui.base.BaseActivity;
 import com.way.mms.ui.base.RecyclerCursorAdapter;
-import com.way.mms.ui.base.WayActivity;
 
 /**
  * Way Lin, 20171028.
@@ -12,7 +12,7 @@ import com.way.mms.ui.base.WayActivity;
 
 public class ConversationListAdapter extends RecyclerCursorAdapter<ConversationListViewHolder, Conversation> {
 
-    public ConversationListAdapter(WayActivity activity) {
+    public ConversationListAdapter(BaseActivity activity) {
         super(activity);
     }
 

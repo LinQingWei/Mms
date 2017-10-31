@@ -200,7 +200,7 @@ public class OsUtil {
      * Does the app have the minimum set of permissions required to operate.
      */
     public static boolean hasRequiredPermissions() {
-        return hasPermissions(sRequiredPermissions);
+        return OsUtil.isAtLeastM() && hasPermissions(sRequiredPermissions);
     }
 
     public static String[] getMissingRequiredPermissions() {

@@ -1,5 +1,6 @@
 package com.way.mms.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -10,15 +11,18 @@ import android.view.View;
 
 import com.way.mms.R;
 import com.way.mms.common.LiveViewManager;
+import com.way.mms.common.utils.OsUtil;
+import com.way.mms.common.utils.UiUtils;
 import com.way.mms.enums.WayPreference;
-import com.way.mms.ui.base.WayActivity;
+import com.way.mms.ui.base.BaseActivity;
 import com.way.mms.ui.conversation.ConversationListFragment;
 import com.way.mms.ui.dialog.DefaultSmsHelper;
 import com.way.mms.ui.settings.SettingsFragment;
 import com.way.mms.ui.welcome.WelcomeActivity;
 
-public class MainActivity extends WayActivity {
+public class MainActivity extends BaseActivity {
     private final String TAG = "MainActivity";
+    private static final String EXTRA_SHOW_IF_NOT_DEFAULT = "extra_show_if_not_default";
 
     private View mRoot;
     private ConversationListFragment mConversationList;
@@ -27,11 +31,14 @@ public class MainActivity extends WayActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         launchWelcomeActivity();
-        onNewIntent(getIntent());
+        Intent intent = getIntent();
+        onNewIntent(intent);
 
         setContentView(R.layout.activity_fragment);
         setTitle(R.string.title_conversation_list);
         initView();
+
+        handleIntent(intent);
 
         FragmentManager fm = getSupportFragmentManager();
         mConversationList = (ConversationListFragment) fm.findFragmentByTag(ConversationListFragment.TAG);
@@ -52,11 +59,18 @@ public class MainActivity extends WayActivity {
 
     private void launchWelcomeActivity() {
         if (mPrefs.getBoolean(SettingsFragment.WELCOME_SEEN, false)) {
+            if (UiUtils.redirectToPermissionCheckIfNeeded(this)) {
+                finish();
+            }
+
             // User has already seen the welcome screen
             return;
         }
 
         WelcomeActivity.startForResult(this, WelcomeActivity.class, WelcomeActivity.WELCOME_REQUEST_CODE);
+        if (!OsUtil.hasRequiredPermissions()) {
+            finish();
+        }
     }
 
     private void initView() {
@@ -76,8 +90,24 @@ public class MainActivity extends WayActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == WelcomeActivity.WELCOME_REQUEST_CODE) {
-            new DefaultSmsHelper(this, R.string.not_default_first).showIfNotDefault(mRoot);
+            showIfNotDefault();
         }
+    }
+
+    private void showIfNotDefault() {
+        new DefaultSmsHelper(this, R.string.not_default_first).showIfNotDefault(mRoot);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (intent.getBooleanExtra(EXTRA_SHOW_IF_NOT_DEFAULT, true)) {
+            showIfNotDefault();
+        }
+    }
+
+    public static void start(Context context, boolean show) {
+        final Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(EXTRA_SHOW_IF_NOT_DEFAULT, show);
+        context.startActivity(intent);
     }
 
     @Override

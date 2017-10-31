@@ -1,7 +1,5 @@
 package com.way.mms.ui;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,8 +10,11 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.way.mms.R;
+import com.way.mms.common.LiveViewManager;
 import com.way.mms.common.utils.OsUtil;
 import com.way.mms.common.utils.UiUtils;
+import com.way.mms.enums.WayPreference;
+import com.way.mms.ui.base.BaseActivity;
 import com.way.mms.ui.view.WayTextView;
 
 /**
@@ -26,8 +27,8 @@ import com.way.mms.ui.view.WayTextView;
  * </pre>
  */
 
-public class PermissionCheckActivity extends Activity {
-    private static final int REQUIRED_PERMISSIONS_REQUEST_CODE = 1;
+public class PermissionCheckActivity extends BaseActivity {
+    public static final int REQUIRED_PERMISSIONS_REQUEST_CODE = 1;
     private static final long AUTOMATED_RESULT_THRESHOLD_MILLLIS = 250;
     private static final String PACKAGE_URI_PREFIX = "package:";
     private long mRequestTimeMillis;
@@ -66,6 +67,15 @@ public class PermissionCheckActivity extends Activity {
                 final Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                         Uri.parse(PACKAGE_URI_PREFIX + getPackageName()));
                 startActivity(intent);
+            }
+        });
+
+        LiveViewManager.registerView(WayPreference.BACKGROUND, this, key -> {
+            // Update the background color. This code is important during the welcome screen setup, when the activity
+            // in the ThemeManager isn't the MainActivity
+            View root = findViewById(R.id.root);
+            if (root != null) {
+                root.setBackgroundColor(ThemeManager.getBackgroundColor());
             }
         });
     }
@@ -125,12 +135,7 @@ public class PermissionCheckActivity extends Activity {
     }
 
     private void redirect() {
-        MainActivity.start(this, MainActivity.class);
+        MainActivity.start(this, true);
         finish();
-    }
-
-    public static void start(Context context) {
-        Intent intent = new Intent(context, PermissionCheckActivity.class);
-        context.startActivity(intent);
     }
 }

@@ -17,7 +17,7 @@ import com.way.mms.R;
 import com.way.mms.common.CIELChEvaluator;
 import com.way.mms.common.LiveViewManager;
 import com.way.mms.enums.WayPreference;
-import com.way.mms.ui.base.WayActivity;
+import com.way.mms.ui.base.BaseActivity;
 import com.way.mms.ui.settings.SettingsFragment;
 import com.way.mms.ui.view.WayTextView;
 
@@ -332,7 +332,7 @@ public class ThemeManager {
         return sTheme == Theme.DARK || sTheme == Theme.BLACK;
     }
 
-    public static void setColor(WayActivity activity, int color) {
+    public static void setColor(BaseActivity activity, int color) {
         int colorFrom = sActiveColor;
         sColor = color;
         sActiveColor = color;

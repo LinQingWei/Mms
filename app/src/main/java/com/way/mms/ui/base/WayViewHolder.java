@@ -11,9 +11,9 @@ public abstract class WayViewHolder<DataType> extends RecyclerView.ViewHolder
         implements View.OnClickListener, View.OnLongClickListener {
     public RecyclerCursorAdapter.ItemClickListener<DataType> mClickListener;
     public DataType mData;
-    public WayActivity mActivity;
+    public BaseActivity mActivity;
 
-    public WayViewHolder(View itemView, WayActivity activity) {
+    public WayViewHolder(View itemView, BaseActivity activity) {
         super(itemView);
         mActivity = activity;
     }

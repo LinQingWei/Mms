@@ -35,7 +35,7 @@ public class UiUtils {
      */
     public static boolean redirectToPermissionCheckIfNeeded(final Activity activity) {
         if (!OsUtil.hasRequiredPermissions()) {
-            PermissionCheckActivity.start(activity);
+            PermissionCheckActivity.start(activity, PermissionCheckActivity.class);
         } else {
             // No redirect performed
             return false;

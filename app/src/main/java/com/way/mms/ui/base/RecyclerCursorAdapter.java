@@ -10,11 +10,11 @@ import android.view.View;
 
 public abstract class RecyclerCursorAdapter<VH extends RecyclerView.ViewHolder, DataType>
         extends RecyclerView.Adapter<VH> {
-    protected WayActivity mActivity;
+    protected BaseActivity mActivity;
     protected Cursor mCursor;
     protected ItemClickListener<DataType> mItemClickListener;
 
-    public RecyclerCursorAdapter(WayActivity activity) {
+    public RecyclerCursorAdapter(BaseActivity activity) {
         mActivity = activity;
     }
 

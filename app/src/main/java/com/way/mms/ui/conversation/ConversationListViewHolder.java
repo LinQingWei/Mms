@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.way.mms.data.Contact;
 import com.way.mms.data.Conversation;
-import com.way.mms.ui.base.WayActivity;
+import com.way.mms.ui.base.BaseActivity;
 import com.way.mms.ui.base.WayViewHolder;
 
 /**
@@ -16,7 +16,7 @@ public class ConversationListViewHolder extends WayViewHolder<Conversation>
 
     protected View root;
 
-    public ConversationListViewHolder(View view, WayActivity activity) {
+    public ConversationListViewHolder(View view, BaseActivity activity) {
         super(view, activity);
         this.root = view;
     }

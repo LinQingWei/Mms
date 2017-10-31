@@ -11,12 +11,12 @@ import android.view.View;
  */
 
 public class WayFragment extends Fragment {
-    protected WayActivity mActivity;
+    protected BaseActivity mActivity;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mActivity = (WayActivity) activity;
+        mActivity = (BaseActivity) activity;
     }
 
     @Override

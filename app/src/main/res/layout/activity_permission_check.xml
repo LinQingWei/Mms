@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:way="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="96dp"
-        android:text="@string/required_permissions_promo" />
+        android:text="@string/required_permissions_promo"
+        way:type="pref_category" />
 
     <com.way.mms.ui.view.WayTextView
         android:id="@+id/enable_permission_procedure"
@@ -19,7 +22,8 @@
         android:contentDescription="@string/enable_permission_procedure_description"
         android:paddingTop="16dp"
         android:text="@string/enable_permission_procedure"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        way:type="pref_category" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -46,7 +50,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/exit" />
+            android:text="@string/exit"
+            way:type="pref_category" />
 
         <com.way.mms.ui.view.WayTextView
             android:id="@+id/next"
@@ -55,7 +60,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/next"
-            android:text="@string/next_with_arrow" />
+            android:text="@string/next_with_arrow"
+            way:type="pref_category" />
 
         <com.way.mms.ui.view.WayTextView
             android:id="@+id/settings"
@@ -65,6 +71,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/settings"
             android:text="@string/settings_with_arrow"
-            android:visibility="gone" />
+            android:visibility="gone"
+            way:type="pref_category" />
     </LinearLayout>
 </LinearLayout>

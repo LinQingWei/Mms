@@ -13,9 +13,10 @@ import android.widget.ImageView;
 
 import com.way.mms.R;
 import com.way.mms.common.LiveViewManager;
+import com.way.mms.common.utils.UiUtils;
 import com.way.mms.enums.WayPreference;
 import com.way.mms.ui.ThemeManager;
-import com.way.mms.ui.base.WayActivity;
+import com.way.mms.ui.base.BaseActivity;
 import com.way.mms.ui.settings.SettingsFragment;
 import com.way.mms.ui.view.RobotoTextView;
 
@@ -23,7 +24,7 @@ import com.way.mms.ui.view.RobotoTextView;
  * Way Lin, 20171025.
  */
 
-public class WelcomeActivity extends WayActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
     private static final String TAG = "WelcomeActivity";
 
     public static final int WELCOME_REQUEST_CODE = 1025;
@@ -156,6 +157,7 @@ public class WelcomeActivity extends WayActivity implements ViewPager.OnPageChan
         switch (v.getId()) {
             case R.id.welcome_skip:
                 setResult(RESULT_OK, null);
+                UiUtils.redirectToPermissionCheckIfNeeded(this);
                 finish();
                 break;
             case R.id.welcome_previous:
