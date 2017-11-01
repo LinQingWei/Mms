@@ -1,6 +1,7 @@
 package com.way.mms;
 
 import android.content.res.Configuration;
+import android.location.Country;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
@@ -8,6 +9,8 @@ import android.util.Log;
 import com.way.mms.common.LiveViewManager;
 import com.way.mms.common.WayPreferences;
 import com.way.mms.ui.ThemeManager;
+
+import java.util.Locale;
 
 /**
  * <pre>
@@ -22,6 +25,7 @@ public class AppBase extends MultiDexApplication {
 
     public static final int LOADER_CONVERSATIONS = 0;
 
+    private String mCountryIso;
     private static AppBase sAppBase;
 
     @Override
@@ -62,5 +66,14 @@ public class AppBase extends MultiDexApplication {
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
+    }
+
+    // This function CAN return null.
+    public String getCurrentCountryIso() {
+        if (mCountryIso == null) {
+            Country country = new Country(Locale.getDefault().getCountry(), Country.COUNTRY_SOURCE_LOCALE);
+            mCountryIso = country.getCountryIso();
+        }
+        return mCountryIso;
     }
 }

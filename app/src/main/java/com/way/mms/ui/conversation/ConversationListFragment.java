@@ -10,6 +10,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,7 @@ import com.way.mms.common.LiveViewManager;
 import com.way.mms.common.utils.ColorUtils;
 import com.way.mms.data.Conversation;
 import com.way.mms.enums.WayPreference;
+import com.way.mms.transaction.SmsHelper;
 import com.way.mms.ui.ThemeManager;
 import com.way.mms.ui.base.RecyclerCursorAdapter;
 import com.way.mms.ui.base.WayFragment;
@@ -114,7 +116,13 @@ public class ConversationListFragment extends WayFragment implements LoaderManag
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        if (id == AppBase.LOADER_CONVERSATIONS) {
+            return new CursorLoader(mActivity, SmsHelper.CONVERSATIONS_CONTENT_PROVIDER, Conversation.ALL_THREADS_PROJECTION,
+                    null,
+                    null, "date DESC");
+        } else {
+            return null;
+        }
     }
 
     @Override
