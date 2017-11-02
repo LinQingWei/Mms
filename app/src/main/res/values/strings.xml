@@ -31,6 +31,12 @@
 
     <!-- Tells the user they need to set Mms as the default app in order to use this feature -->
     <string name="default_info">Mms needs to be your SMS app to do that</string>
+    <!-- Tells the user they need to set QKSMS as the default messaging app in order to mark messages as read -->
+    <string name="not_default_mark_read">QKSMS must be your SMS app to mark messages read</string>
+    <!-- Tells the user they need to set QKSMS as the default messaging app in order to mark messages as unread -->
+    <string name="not_default_mark_unread">QKSMS must be your SMS app to mark messages unread</string>
+    <!-- Tells the user they need to set QKSMS as the default messaging app in order to send messages -->
+    <string name="not_default_delete">Mms must be your SMS app to delete messages</string>
     <!-- Tells the user they should set Mms as the default messaging app -->
     <string name="not_default_first">Some things won\'t work until Mms is the default SMS app</string>
 
@@ -48,4 +54,26 @@
 
     <!-- Name of the local user when displaying sender of an outgoing message (personal pronoun) -->
     <string name="messagelist_sender_self">Me</string>
+    <!-- Sender to be used if the sender address has been hidden -->
+    <string name="hidden_sender_address">Hidden sender address</string>
+    <!-- Subject to display in the conversation list if there is no subject -->
+    <string name="no_subject_view">(No subject)</string>
+
+    <!-- Tag appearing on conversations in the conversation list that contain a draft message -->
+    <string name="has_draft">Draft</string>
+    <!-- In conversation list items, this is the separator between a contact's name and the draft stamp [CHAR LIMIT=5] -->
+    <string name="draft_separator">,\u0020</string>
+    <!-- In conversation list items, this comes after the receipient's name and contains the number of messages in the thread [CHAR LIMIT=5] -->
+    <string name="message_count_format">\u00a0<xliff:g example="1" id="number">%1$s</xliff:g></string>
+    <!-- For debugging: Dialog box title indicating there's a situation where data has unexpectedly changed -->
+    <string name="error_state">Inconsistent state</string>
+    <!-- For debugging: Dialog box text indicating there's a situation where data has unexpectedly changed -->
+    <string name="error_state_text">The state of threads and recipients is inconsistent. Please capture a bug report and report it via http://go/droidanizer </string>
+
+    <!--Toast shown when a draft is saved-->
+    <string name="toast_draft">Saved draft</string>
+    <!--Toast shown when a conversation is deleted-->
+    <string name="toast_conversation_deleted">Conversation deleted</string>
+    <!--Toast shown when device is low on storage-->
+    <string name="toast_low_memory">"Phone storage is full. Delete some files to free space."</string>
 </resources>

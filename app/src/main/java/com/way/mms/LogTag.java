@@ -1,6 +1,15 @@
 package com.way.mms;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
+
 import com.way.mms.common.utils.MLog;
+import com.way.mms.data.Contact;
+import com.way.mms.data.Conversation;
+import com.way.mms.data.RecipientIdCache;
 
 /**
  * <pre>
@@ -23,6 +32,8 @@ public class LogTag {
      */
     public static final String STRICT_MODE_TAG = "Mms:strictmode";
     public static final boolean VERBOSE = false;
+    public static final boolean ALLOW_DUMP_IN_LOGS = false;  // Set to false before ship
+    private static final boolean SHOW_SEVERE_WARNING_DIALOG = false;    // Set to false before ship
 
     private static String prettyArray(String[] array) {
         if (array.length == 0) {
@@ -62,5 +73,43 @@ public class LogTag {
 
     public static void error(String format, Object... args) {
         MLog.e(TAG, logFormat(format, args));
+    }
+
+    public static void dumpInternalTables(final Context context) {
+        if (!ALLOW_DUMP_IN_LOGS) {
+            return;
+        }
+        new Thread(new Runnable() {
+            public void run() {
+                RecipientIdCache.canonicalTableDump();
+                RecipientIdCache.dump();
+                Conversation.dumpThreadsTable(context);
+                Conversation.dump();
+                Conversation.dumpSmsTable(context);
+                Contact.dump();
+            }
+        }).start();
+    }
+
+    public static void warnPossibleRecipientMismatch(final String msg, final Activity activity) {
+        Log.e(TAG, "WARNING!!!! " + msg, new RuntimeException());
+
+        if (SHOW_SEVERE_WARNING_DIALOG) {
+            dumpInternalTables(activity);
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    new AlertDialog.Builder(activity)
+                            .setIconAttribute(android.R.attr.alertDialogIcon)
+                            .setTitle(R.string.error_state)
+                            .setMessage(msg + "\n\n" + activity.getString(R.string.error_state_text))
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+            });
+        }
     }
 }

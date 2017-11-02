@@ -37,4 +37,5 @@ dependencies {
     // Google libraries
     compile 'com.android.support:multidex:1.0.1'
     implementation 'com.android.support:design:26.0.2'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.5'
 }

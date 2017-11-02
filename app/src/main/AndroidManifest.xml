@@ -14,6 +14,10 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <application
         android:name=".AppBase"
         android:allowBackup="true"
@@ -41,6 +45,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseThemeLight" />
+
+
+        <service
+            android:name=".receiver.UnreadBadgeService"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -19,4 +19,6 @@ public class SettingsFragment extends PreferenceFragment {
     public static final String FONT_WEIGHT = "pref_key_font_weight";
 
     public static final String WELCOME_SEEN = "pref_key_welcome_seen";
+
+    public static final String MESSAGE_COUNT = "pref_key_message_count";
 }

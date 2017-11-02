@@ -15,9 +15,8 @@ import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.Profile;
 import android.provider.ContactsContract.Presence;
-import android.telephony.PhoneNumberUtils;
+import android.provider.ContactsContract.Profile;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -25,6 +24,7 @@ import com.way.mms.AppBase;
 import com.way.mms.LogTag;
 import com.way.mms.R;
 import com.way.mms.common.utils.MLog;
+import com.way.mms.common.utils.PhoneNumberUtils;
 import com.way.mms.transaction.SmsHelper;
 
 import java.io.IOException;

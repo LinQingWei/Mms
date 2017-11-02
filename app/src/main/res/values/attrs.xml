@@ -58,4 +58,8 @@
     <declare-styleable name="RobotoTextView">
         <attr name="typeface" />
     </declare-styleable>
+
+    <declare-styleable name="AvatarView">
+        <attr name="initialSize" format="dimension" />
+    </declare-styleable>
 </resources>
