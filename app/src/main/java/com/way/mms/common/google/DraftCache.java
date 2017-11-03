@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.way.mms.LogTag;
 import com.way.mms.common.utils.MLog;
+import com.way.mms.common.utils.OsUtil;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -62,6 +63,10 @@ public class DraftCache {
     public void refresh() {
         if (Log.isLoggable(LogTag.APP, Log.DEBUG)) {
             log("refresh");
+        }
+
+        if (!OsUtil.hasRequiredPermissions()) {
+            return;
         }
 
         Thread thread = new Thread(new Runnable() {

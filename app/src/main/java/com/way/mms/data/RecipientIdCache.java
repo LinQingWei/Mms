@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.way.mms.LogTag;
 import com.way.mms.common.utils.MLog;
+import com.way.mms.common.utils.OsUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,11 @@ public class RecipientIdCache {
 
     static void init(Context context) {
         sInstance = new RecipientIdCache(context);
+
+        if (!OsUtil.hasRequiredPermissions()) {
+            return;
+        }
+
         new Thread(new Runnable() {
             public void run() {
                 fill();

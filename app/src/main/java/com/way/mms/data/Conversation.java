@@ -28,6 +28,7 @@ import com.way.mms.R;
 import com.way.mms.common.google.DraftCache;
 import com.way.mms.common.utils.AddressUtils;
 import com.way.mms.common.utils.MLog;
+import com.way.mms.common.utils.OsUtil;
 import com.way.mms.common.utils.PhoneNumberUtils;
 import com.way.mms.mmssms.Utils;
 import com.way.mms.receiver.UnreadBadgeService;
@@ -1094,6 +1095,10 @@ public class Conversation {
      * startup time.
      */
     public static void init(final Context context) {
+        if (!OsUtil.hasRequiredPermissions()) {
+            return;
+        }
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

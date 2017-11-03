@@ -18,6 +18,8 @@ public enum WayPreference {
     FONT_SIZE("pref_key_font_size", "1"),
     FONT_WEIGHT("pref_key_font_weight", "0"),
 
+    HIDE_AVATAR_CONVERSATIONS("pref_key_hide_avatar_conversations", false),
+
     TEXT_FORMATTING("pref_key_markdown_enabled", false),;
 
     private String mKey;

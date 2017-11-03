@@ -20,5 +20,9 @@ public class SettingsFragment extends PreferenceFragment {
 
     public static final String WELCOME_SEEN = "pref_key_welcome_seen";
 
+    public static final String AUTO_EMOJI = "pref_key_auto_emoji";
+
     public static final String MESSAGE_COUNT = "pref_key_message_count";
+
+    public static final String NOTIFICATIONS = "pref_key_notifications";
 }

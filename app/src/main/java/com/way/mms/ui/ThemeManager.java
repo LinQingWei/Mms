@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.util.Log;
@@ -212,7 +213,8 @@ public class ThemeManager {
     private static int sTextOnColorPrimary;
     private static int sTextOnColorSecondary;
     private static int sTextOnBackgroundPrimary;
-    private static int stextOnBackgroundSecondary;
+    private static int sTextOnBackgroundSecondary;
+    private static int sRippleBackgroundRes;
 
     private static Resources sResources;
     private static SharedPreferences sPrefs;
@@ -263,19 +265,22 @@ public class ThemeManager {
             case LIGHT:
                 sBackgroundColor = sResources.getColor(R.color.grey_light_mega_ultra);
                 sTextOnBackgroundPrimary = sResources.getColor(R.color.theme_light_text_primary);
-                stextOnBackgroundSecondary = sResources.getColor(R.color.theme_light_text_secondary);
+                sTextOnBackgroundSecondary = sResources.getColor(R.color.theme_light_text_secondary);
+                sRippleBackgroundRes = R.drawable.ripple;
                 break;
 
             case DARK:
                 sBackgroundColor = sResources.getColor(R.color.grey_material);
                 sTextOnBackgroundPrimary = sResources.getColor(R.color.theme_dark_text_primary);
-                stextOnBackgroundSecondary = sResources.getColor(R.color.theme_dark_text_secondary);
+                sTextOnBackgroundSecondary = sResources.getColor(R.color.theme_dark_text_secondary);
+                sRippleBackgroundRes = R.drawable.ripple_light;
                 break;
 
             case BLACK:
                 sBackgroundColor = sResources.getColor(R.color.black);
                 sTextOnBackgroundPrimary = sResources.getColor(R.color.theme_dark_text_primary);
-                stextOnBackgroundSecondary = sResources.getColor(R.color.theme_dark_text_secondary);
+                sTextOnBackgroundSecondary = sResources.getColor(R.color.theme_dark_text_secondary);
+                sRippleBackgroundRes = R.drawable.ripple_light;
                 break;
             default:
                 break;
@@ -311,7 +316,11 @@ public class ThemeManager {
 
     @ColorInt
     public static int getTextOnBackgroundSecondary() {
-        return stextOnBackgroundSecondary;
+        return sTextOnBackgroundSecondary;
+    }
+
+    public static Drawable getRippleBackground() {
+        return sResources.getDrawable(sRippleBackgroundRes);
     }
 
     @ColorInt

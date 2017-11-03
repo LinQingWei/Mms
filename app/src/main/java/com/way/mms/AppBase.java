@@ -8,6 +8,9 @@ import android.util.Log;
 
 import com.way.mms.common.LiveViewManager;
 import com.way.mms.common.WayPreferences;
+import com.way.mms.common.google.DraftCache;
+import com.way.mms.data.Contact;
+import com.way.mms.data.Conversation;
 import com.way.mms.ui.ThemeManager;
 
 import java.util.Locale;
@@ -43,6 +46,10 @@ public class AppBase extends MultiDexApplication {
         sAppBase = this;
 
         ThemeManager.init(this);
+        MmsConfig.init(this);
+        Contact.init(this);
+        DraftCache.init(this);
+        Conversation.init(this);
         LiveViewManager.init(this);
         WayPreferences.init(this);
     }
