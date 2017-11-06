@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.way.mms.common.LifecycleHandler;
 import com.way.mms.common.LiveViewManager;
 import com.way.mms.common.WayPreferences;
 import com.way.mms.ui.ThemeManager;
@@ -41,6 +42,8 @@ public class AppBase extends MultiDexApplication {
         }
 
         sAppBase = this;
+
+        registerActivityLifecycleCallbacks(new LifecycleHandler());
 
         ThemeManager.init(this);
         LiveViewManager.init(this);

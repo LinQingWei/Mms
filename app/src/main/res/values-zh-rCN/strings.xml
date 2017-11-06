@@ -75,4 +75,9 @@
     <string name="toast_conversation_deleted">会话已删除</string>
     <!--Toast shown when device is low on storage-->
     <string name="toast_low_memory">"手机存储空间已满。删除一些文件以释放空间。"</string>
+
+    <string name="menu_messages">信息</string>
+    <string name="menu_blocked">已拦截</string>
+    <string name="menu_blocked_conversations">已拦截 （%s 条新信息）</string>
+    <string name="menu_unblocked_conversations">信息 (%s 条新信息)</string>
 </resources>
