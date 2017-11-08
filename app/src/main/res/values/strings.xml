@@ -76,4 +76,9 @@
     <string name="toast_conversation_deleted">Conversation deleted</string>
     <!--Toast shown when device is low on storage-->
     <string name="toast_low_memory">"Phone storage is full. Delete some files to free space."</string>
+
+    <string name="menu_messages">Messages</string>
+    <string name="menu_blocked">Blocked</string>
+    <string name="menu_blocked_conversations">Blocked (%s new)</string>
+    <string name="menu_unblocked_conversations">Messages (%s new)</string>
 </resources>

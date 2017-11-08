@@ -1,5 +1,7 @@
 package com.way.mms.transaction;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -68,6 +70,26 @@ public class SmsHelper {
     };
 
     private static String[] sNoSubjectStrings;
+
+    /**
+     * Add incoming SMS to inbox
+     *
+     * @param context
+     * @param address Address of sender
+     * @param body    Body of incoming SMS message
+     * @param time    Time that incoming SMS message was sent at
+     */
+    public static Uri addMessageToInbox(Context context, String address, String body, long time) {
+
+        ContentResolver contentResolver = context.getContentResolver();
+        ContentValues cv = new ContentValues();
+
+        cv.put("address", address);
+        cv.put("body", body);
+        cv.put("date_sent", time);
+
+        return contentResolver.insert(RECEIVED_MESSAGE_CONTENT_PROVIDER, cv);
+    }
 
     public static String extractEncStrFromCursor(Cursor cursor,
                                                  int columnRawBytes, int columnCharset) {

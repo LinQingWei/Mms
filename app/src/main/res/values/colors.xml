@@ -6,8 +6,11 @@
 
     <color name="def_indicator_tint_color">#FFFFFFFF</color>
 
+    <color name="red_light">#FF4444</color>
+
     <color name="grey_light_mega_ultra">#eeeeee</color>
     <color name="grey_light">#999999</color>
+    <color name="grey_dark">#333333</color>
     <color name="grey_material">#ff212121</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
