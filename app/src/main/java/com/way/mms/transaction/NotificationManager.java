@@ -25,4 +25,14 @@ public class NotificationManager {
     public static void update(final Context context) {
 
     }
+
+    /**
+     * Set up the QK Compose notification
+     *
+     * @param override       If true, then show the QK Compose notification regardless of the user's preference
+     * @param overrideCancel If true, dismiss the notification no matter what
+     */
+    public static void initQuickCompose(Context context, boolean override, boolean overrideCancel) {
+
+    }
 }

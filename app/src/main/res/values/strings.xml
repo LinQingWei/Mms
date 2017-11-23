@@ -81,4 +81,7 @@
     <string name="menu_blocked">Blocked</string>
     <string name="menu_blocked_conversations">Blocked (%s new)</string>
     <string name="menu_unblocked_conversations">Messages (%s new)</string>
+
+    <string name="date_yesterday">Yesterday</string>
+    <string name="date_just_now">Just now</string>
 </resources>

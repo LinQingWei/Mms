@@ -80,4 +80,7 @@
     <string name="menu_blocked">已拦截</string>
     <string name="menu_blocked_conversations">已拦截 （%s 条新信息）</string>
     <string name="menu_unblocked_conversations">信息 (%s 条新信息)</string>
+
+    <string name="date_yesterday">昨天</string>
+    <string name="date_just_now">刚刚</string>
 </resources>
